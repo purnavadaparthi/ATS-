@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Upload and Role Selection</title>
+    <style>
+        .form-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-container label {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Your Resume</h1>
+    <form action="/" method="post" enctype="multipart/form-data" class="form-container">
+        <label for="resume">Choose a file:</label>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
+
+        <label for="roles">Select role:</label>
+        <select id="roles" name="roles">
+            {% for role in roles %}
+                <option value="{{ role }}">{{ role }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="experience">Experience Level:</label>
+        <select id="experience" name="experience">
+            <option value="0-2 yrs">0-2 years</option>
+            <option value="2-5 yrs">2-5 years</option>
+            <option value="5-10 yrs">5-10 years</option>
+            <option value="10+ yrs">10+ years</option>
+        </select>
+
+        <input type="submit" value="Upload and Match">
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <h2>Results:</h2>
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
